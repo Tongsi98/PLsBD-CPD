@@ -1,0 +1,675 @@
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series <- c(rnorm(200, 0,2), rnorm(200, 0,1), rnorm(200, 0,2))#
+d <- ts_detect(series, window_size = 50, step = 50, make_plot = TRUE)
+d <- ts_detect(series, window_size = 10, step = 10, make_plot = TRUE)
+d <- ts_detect(series, window_size = 50, step = 10, make_plot = TRUE)
+series <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+d <- ts_detect(series, window_size = 3, step = 10, make_plot = TRUE)
+d <- ts_detect(series, window_size = 10, step = 10, make_plot = TRUE)
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+d <- ts_detect(series, window_size = 10, step = 10, make_plot = TRUE)
+d <- ts_detect(series, window_size = 10, step = 5, make_plot = TRUE)
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT[2:4,], window_size = 2, step = 8, make_plot = TRUE)
+generate_data <- function(n) {  y <- numeric(n)  e <- rnorm(n, mean = 0, sd = 1.5)  mu_N <- 0  # Initialize mu_N before the loop#
+  for (t in 3:n) {    if (t %% 100 == 1) {      N <- (t - 1) %/% 100 + 1      mu_N <- ifelse(N == 1, 0, mu_N + N/16)    }#
+    y[t] <- 0.6 * y[t-1] - 0.5 * y[t-2] + e[t] + mu_N  }#
+  return(y)}#
+series <- generate_data(5000)#
+series = series[4001:5000]#
+d <- ts_detect(series, window_size = 50, step = 10, make_plot = TRUE)
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+generate_data <- function(n) {  y <- numeric(n)  e <- rnorm(n, mean = 0, sd = 1.5)  mu_N <- 0  # Initialize mu_N before the loop#
+  for (t in 3:n) {    if (t %% 100 == 1) {      N <- (t - 1) %/% 100 + 1      mu_N <- ifelse(N == 1, 0, mu_N + N/16)    }#
+    y[t] <- 0.6 * y[t-1] - 0.5 * y[t-2] + e[t] + mu_N  }#
+  return(y)}#
+series <- generate_data(5000)#
+series = series[4001:5000]#
+d <- ts_detect(series, window_size = 50, step = 10, make_plot = TRUE)
+series <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+d <- ts_detect(series, window_size = 10, step = 5, make_plot = TRUE)
+series <- c(rnorm(200, 0,2), rnorm(200, 0,1), rnorm(200, 0,2))#
+d <- ts_detect(series, window_size = 50, step = 10, make_plot = TRUE)
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT[2:4,], window_size = 2, step = 8, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")#
+#
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)
+d = ts_detect(seriesT[2:4,], window_size = 2,  make_plot = TRUE)
+d = ts_detect(seriesT[2:4,], window_size = 3, alpha=0.5, k = 100, n_folds = 5,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT[2:4,], window_size = 5, alpha=0.5, k = 100, n_folds = 5,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT[2:4,], window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT[2:8,], window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT[4:8,], window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+load("drosophila_data_11genes.Rdata")#
+#
+#original changepoints: 31, 41, 59#
+library(InspectChangepoint)#
+#
+x=drosophila_data_11genes#
+x=t(x)#
+dim(x)#
+n=67#
+p=11#
+par(mfrow=c(2,1))#
+y=inspect(x, threshold=25)#
+y#
+plot(y, xlab="time, threshold = 25", ylab="Genes", main="A")#
+#
+y=inspect(x, threshold=50)#
+y#
+plot(y, xlab="time points", ylab="Genes", main="B")#
+plot(table(unlist(y$changepoints[,1])))
+install.packages("InspectChangepoint")
+load("drosophila_data_11genes.Rdata")#
+#
+#original changepoints: 31, 41, 59#
+library(InspectChangepoint)#
+#
+x=drosophila_data_11genes#
+x=t(x)#
+dim(x)#
+n=67#
+p=11#
+par(mfrow=c(2,1))#
+y=inspect(x, threshold=25)#
+y#
+plot(y, xlab="time, threshold = 25", ylab="Genes", main="A")#
+#
+y=inspect(x, threshold=50)#
+y#
+plot(y, xlab="time points", ylab="Genes", main="B")#
+plot(table(unlist(y$changepoints[,1])))
+x= read.table(file="dros067.txt", sep="")#
+x=t(x)#
+dim(x)#
+n=67#
+p=11#
+y=inspect(x, threshold=40)#
+y#
+plot(y)#
+#
+niter = 200#
+result = NULL#
+for (i in 1:niter){#
+  result[[i]] = inspect(x, threshold=40)$changepoints[,1]#
+  printPercentage(i, niter)#
+}#
+plot(table(unlist(result)))
+library(ARTIVA)#
+x=drosophila#
+#
+x = x[sample(1:4028, 500),]#
+y=inspect(x, threshold=100)#
+y#
+plot(y)
+install.packages("ARTIVA")
+library(ARTIVA)#
+x=drosophila#
+#
+x = x[sample(1:4028, 500),]#
+y=inspect(x, threshold=100)#
+y#
+plot(y)
+library(ARTIVA)
+heatmap(seriesT)
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+heatmap(seriesT)
+plot(seriesT)
+heatmap(seriesT)
+heatmap(series)
+seriesT
+head(seriesT)
+load("drosophila_data_11genes.Rdata")
+library(InspectChangepoint)
+x= read.table(file="dros067.txt", sep="")#
+x=t(x)#
+dim(x)#
+n=67#
+p=11#
+y=inspect(x, threshold=40)#
+y#
+plot(y)
+inspect
+y
+niter = 200#
+result = NULL#
+for (i in 1:niter){#
+  result[[i]] = inspect(x, threshold=40)$changepoints[,1]#
+  printPercentage(i, niter)#
+}#
+plot(table(unlist(result)))
+x= read.table(file="dros067.txt", sep="")#
+x=t(x)#
+dim(x)#
+n=67#
+p=11#
+y=inspect(x, threshold=40)#
+y#
+plot(y)#
+#
+niter = 200#
+result = NULL#
+for (i in 1:niter){#
+  result[[i]] = inspect(x, threshold=40)$changepoints[,1]#
+  printPercentage(i, niter)#
+}#
+plot(table(unlist(result)))
+inspect(x, threshold=40)$changepoints[,1]
+plot.inspect
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+install.packages("gplots")
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")#
+#
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series = read.table("dros067.txt", sep="", header=T)#
+seriesT = t(series)#
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.1, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.9, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.99, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.9, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.99, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 2, alpha=0.5, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 3, alpha=0.9, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 3, alpha=0.5, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+d = ts_detect(seriesT, window_size = 5, alpha=0.5, k = 100, n_folds = 10,thresh = 0.95, make_plot = TRUE)
+series <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+d <- ts_detect(series, window_size = 10, step = 5, make_plot = TRUE)
+d <- ts_detect(series, window_size = 10, alpha=0.9, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+series1 <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+#
+series2 <- c(#
+  rnorm(50, mean = 0, sd = 1.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 1, sd = 2.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -1, sd = 0.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 0, sd = 0.2)#
+)#
+series = cbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+heat(series)
+head(series)
+series = rbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+head(series)
+series = rbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+change_points
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series1 <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+#
+series2 <- c(#
+  rnorm(50, mean = 0, sd = 1.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 1, sd = 2.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -1, sd = 0.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 0, sd = 0.2)#
+)#
+series = rbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series1 <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+#
+series2 <- c(#
+  rnorm(50, mean = 0, sd = 1.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 1, sd = 2.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -1, sd = 0.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 0, sd = 0.2)#
+)#
+series = rbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+series1 <- c(#
+  rnorm(50, mean = 0, sd = 0.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 3, sd = 0.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -5, sd = 1.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 2, sd = 1.2)#
+)#
+#
+series2 <- c(#
+  rnorm(50, mean = 0, sd = 1.3),#
+ # rnorm(25, mean = 8, sd = 1),#
+  rnorm(75, mean = 1, sd = 2.6),#
+ # rnorm(25, mean = 1, sd = 0.8),#
+  rnorm(100, mean = -1, sd = 0.5),#
+ # rnorm(100, mean = -5, sd = 0.2),#
+ # rnorm(50, mean = -2.5, sd = 0.4),#
+  rnorm(50, mean = 0, sd = 0.2)#
+)#
+series = rbind(series1, series2)#
+d <- ts_detect(series, window_size = 10, alpha=0.5, k = 100, n_folds = 10,thresh = 0.9, make_plot = TRUE)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")#
+load("drosophila.rda")
+x=drosophila#
+  x = x[sample(1:4028, 400),]
+d <- ts_detect(method="PL", x1, window_size = 8, alpha, step = 5, k = 50, n_folds = 5, thresh = 0.9, make_plot = TRUE)
+x=drosophila#
+  x1 = x[sample(1:4028, 400),]
+d <- ts_detect(method="PL", x1, window_size = 8, alpha, step = 5, k = 50, n_folds = 5, thresh = 0.9, make_plot = TRUE)
+d <- ts_detect(method="PL", x1, window_size = 8, alpha=0.5, step = 5, k = 50, n_folds = 5, thresh = 0.9, make_plot = TRUE)
+choose(11,6)
+choose(4000,400)
+source("sliding_window.R")
+s = matrix(1:20, nrow=1)
+sw <- sliding_window(X = s, window_size = 8)
+sw
+step=5
+y <- sw[ , (t - step):(step + t - 1), drop = FALSE]
+t=6
+y <- sw[ , (t - step):(step + t - 1), drop = FALSE]
+y
+y_nu <- y[ , 1:step]
+y_de <- y[ , (step + 1):ncol(y)]
+y_nu
+y_de
+t=7
+y <- sw[ , (t - step):(step + t - 1), drop = FALSE]
+y
+source("comp_dist.R")source("comp_median.R")source("gaussian_kernel.R")source("sliding_window.R")source("ts_detect.R")source("ts_plot.R")source("sigma_lambda_grid_search.R")source("RelULSIF.R")
+out <- RelULSIF("PL", y_nu, y_de, alpha = 0.5, k = 8, n_folds=5)
+out$rPE
+out
+choose(11,5)
+choose(11,6)
+choose(11,4)
+choose(11,3)
+series = read.table("dros067.txt", sep="", header=T)seriesT = t(series)
+x1 = x[sample(1:11, 5),]  d <- ts_detect(method="PL", x1, window_size = 5, alpha=0.5, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9
+result = NULLresultM = matrix(0,niter,50)x=seriesT
+niter = 100
+result = NULLresultM = matrix(0,niter,50)x=seriesT
+for (i in 1:niter){  #g = sample(1:11, 1)  x1 = x[sample(1:11, 5),]  d <- ts_detect(method="PL", x1, window_size = 8, alpha=0.5, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9  result[[i]] = d$change_points  resultM[i,] = d$scores#
+}#pdf(file="Fig1.pdf")par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)plot(14:63, out, type="l")#dev.off()
+for (i in 1:niter){  #g = sample(1:11, 1)  x1 = x[sample(1:11, 5),]  d <- ts_detect(method="PL", x1, window_size = 5, alpha=0.5, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9  result[[i]] = d$change_points  resultM[i,] = d$scores#
+}#pdf(file="Fig1.pdf")par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)plot(14:63, out, type="l")#dev.off()
+for (i in 1:niter){  #g = sample(1:11, 1)  x1 = x[sample(1:11, 3),]  d <- ts_detect(method="PL", x1, window_size = 5, alpha=0.5, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9  result[[i]] = d$change_points  resultM[i,] = d$scores#
+}#pdf(file="Fig1.pdf")par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)plot(14:63, out, type="l")#dev.off()
+d <- ts_detect(method="PL", x, window_size = 5, alpha=0.5, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9
+d$scores
+d$change_points
+niter = 100result = NULLresultM = matrix(0,niter,53)x=seriesTfor (i in 1:niter){  #g = sample(1:11, 1)  x1 = x[sample(1:11, 5),]  d <- ts_detect(method="PL", x1, window_size = 5, alpha=0.9, step = 5, k = 50,                  n_folds = 5, thresh = 0.9, make_plot = FALSE)  # varying alpha 0.1, 0.5, 0.9  result[[i]] = d$change_points  resultM[i,] = d$scores#
+}#pdf(file="Fig1.pdf")par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)
+length(out)
+plot(14:63, out, type="l")#dev.off()
+plot(13:65, out, type="l")#dev.off()
+par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)
+plot(13:65, out, type="l")#dev.off()
+out = apply(resultM, 2, mean)
+plot(13:65, out, type="l")
+par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean)
+table(unlist(result))
+out
+length(unlist(result))
+s = matrix(1:267, nrow=1)#
+sw <- sliding_window(X = s, window_size = 8)
+sw
+s = matrix(1:67, nrow=1)#
+sw <- sliding_window(X = s, window_size = 8)
+sw
+s = matrix(1:67, nrow=1)#
+sw <- sliding_window(X = s, window_size = 5)
+sw
+plot(d$scores)
+par(mfrow=c(2,1))plot(table(unlist(result)))out = apply(resultM, 2, mean);plot(13:65, out, type="l")
+length(d$scores)
+choose(11,3)
+choose(11,4)
+choose(11,5)
+source("comp_dist.R")#
+source("comp_median.R")#
+source("gaussian_kernel.R")#
+source("sliding_window.R")#
+source("ts_detect.R")#
+source("ts_plot.R")#
+source("sigma_lambda_grid_search.R")#
+source("RelULSIF.R")
+## Below, we use INSPECT method, change threshold from 50, 100, 150#
+library(InspectChangepoint)#
+load("drosophila.rda")#
+#
+par(mfrow=c(3,1))#
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=50)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=100)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=150)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=100)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")#
+#, xlab = "time points", ylab="Frequency", main="(C): threshold = 175")
+par(mfrow=c(3,1))#
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=50)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")#
+#, xlab = "time points", ylab="Frequency", main="(C): threshold = 175")
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=100)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")#
+#, xlab = "time points", ylab="Frequency", main="(C): threshold = 175")
+niter = 1000#
+result = NULL#
+#
+for (i in 1:niter){#
+  x=drosophila#
+  x = x[sample(1:4028, 400),]#
+  result[[i]] = inspect(x, threshold=150)$changepoints[,1]#
+  # printPercentage(i, niter)#
+}#
+plot(table(unlist(result)),  ylab="Frequency", xlab = "time points")#
+#, xlab = "time points", ylab="Frequency", main="(C): threshold = 175")
